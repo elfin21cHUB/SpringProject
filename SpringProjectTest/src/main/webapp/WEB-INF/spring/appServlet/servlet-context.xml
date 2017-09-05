@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<!-- 
+servlet-context는 브라우저의 요청으로부터 그 요청을 처리할 Controller를 이어주는 작업을 한다.
+즉 servlet-context 에서 HandlerMapping, HandlerAdapter의 작업이 진행된다.
+ -->
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- 
+	이 설정을 통ㅇ해 URL 매핑이 일어난다. annotation-driven에 의해 @RequestMapping을 사용할 수 있게 되고, @RequestMapping에 지정된 URL로 브라우저의 요청 URL이 매핑되게 된다.
+	만약 <annotation-driven />를 지우면 URL을 찾을 수 없다는 오류가 발생한다.
+	<annotation-driven />는 RequestMappingHandlerMapping 와 RequestMappingHandlerAdapter, ExceptionHandlerExceptionResolver로 구성되어 있다.
+	-->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 
+	component-scan은 @Controller, @Repository, @Service, @Component 어노테이션이 사용된 클래스를 자동으로 스캔하여 빈으로 등록한다.
+	패키지(kr.co.kbsjob) 아래에서 어노테이션이 사용된 클래스를 찾아서 빈으로 등록한다.
+	-->
+	<context:component-scan base-package="kr.co.kbsjob" />
+	
+	
+	
+</beans:beans>
